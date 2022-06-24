@@ -785,7 +785,7 @@ export class App {
     // Fake clipboard handling due to problems with pupeteer's native clipboad support.
     // We use npm's copy-to-clipboard which bottoms out on document.execCommand("copy").
     await page.evaluate(async () => {
-      const originalExecComnand = document.execCommand;
+      const originalExecCommand = document.execCommand;
       let clipboardContents: string = "";
       const copyHack = () => {
         clipboardContents = document.getSelection()?.toString() || "";
@@ -794,7 +794,7 @@ export class App {
         if (command === "copy") {
           copyHack();
         } else {
-          originalExecComnand("command");
+          originalExecCommand("command");
         }
       };
       (window as any).copyHackPasteEvent = (): Event | undefined => {
